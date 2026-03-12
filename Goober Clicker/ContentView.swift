@@ -70,6 +70,7 @@ struct ContentView: View {
                 ProgressView(value: Double(tapCount), total: Double(upgradeCost))
                     .padding(.horizontal)
                     .padding(.bottom)
+                // ProgressView initialized with an out-of-bounds progress value. The value will be clamped to the range of `0...total`.
                 
                 // Tap Button
                 Button("Tap Me") {
