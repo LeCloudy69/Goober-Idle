@@ -45,13 +45,16 @@ struct ContentView: View {
                 
                 //Spacer()
                 
-                // Image in the center of the screen
-                Image("Mischevious") // Example system image
-                    .resizable()
-                    .frame(width: 250, height: 200) // Adjust size as needed
-                    .foregroundColor(.yellow)
-                    .padding(.top)
-                
+                // Tap Button
+                Button {
+                    tapCount += upgradeCount // Increase tap count by current upgrade multiplier
+                } label: {
+                    Image("Mischevious") // asset image
+                        .resizable()
+                        .frame(width: 250, height: 200) // adjust size as needed
+                        .foregroundColor(.yellow)
+                        .padding(.top)
+                }
                 //Spacer()
                 
                 // Upgrade Button
@@ -67,28 +70,13 @@ struct ContentView: View {
                 .opacity(tapCount < upgradeCost ? 0.7 : 1.0)
                 
                 // Progress bar under the button
-                ProgressView(value: Double(tapCount), total: Double(upgradeCost))
+                ProgressView(value: min(Double(tapCount), Double(upgradeCost)), total: Double(upgradeCost))
                     .padding(.horizontal)
                     .padding(.bottom)
-                // ProgressView initialized with an out-of-bounds progress value. The value will be clamped to the range of `0...total`.
-                
-                // Tap Button
-                Button("Tap Me") {
-                    tapCount += upgradeCount // Increase tap count by current upgrade multiplier
-                }
-                .controlSize(.large)
-                .buttonStyle(.borderedProminent)
                 
                 Spacer()
-                
+        
             }
-            
-            // Image in the center of the screen
-            //Image("Mischevious") // Example system image
-                //.resizable()
-                //.frame(width: 250, height: 200) // Adjust size as needed
-                //.foregroundColor(.yellow)
-                //.position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
         }
     }
 }
