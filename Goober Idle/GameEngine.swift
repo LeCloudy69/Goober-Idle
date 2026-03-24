@@ -35,21 +35,21 @@ class GameEngine {
     }
     
     func clickGoober() {
-        tapCount += 1
+        if let tap_upgrade = upgrades.first(where: { $0.id == "tap_power" }) {
+            tapCount += (1 + tap_upgrade.level)
+        } else {
+            tapCount += 1 // fallback if tap_power doesnt exist
+        }
         saveGame()
     }
     
     // MARK: - Debug / Reset
-        func resetGame() {
-            // 1. Reset the live variables back to their defaults
-            self.tapCount = 0
-            self.upgrades = [
-                Upgrade(id: "click_power", name: "Cursor Enhancer", description: "+1 per tap", baseCost: 10, multiplier: 1.5),
-                Upgrade(id: "auto_farm", name: "Goober Farm", description: "Auto-generates", baseCost: 50, multiplier: 1.8),
-                Upgrade(id: "factory", name: "Goober Factory", description: "Mass production", baseCost: 500, multiplier: 2.0)
-            ]
-            saveGame()
-        }
+    func resetGame() {
+        // 1. Reset the live variables back to their defaults
+        self.tapCount = 0
+        self.upgrades = Upgrade.starterUpgrades
+        saveGame()
+    }
     
     // MARK: - Persistence
     private func saveGame() {
@@ -69,11 +69,7 @@ class GameEngine {
                 self.upgrades = decodedUpgrades
             } else {
                 // First time or empty save, Initialize the default upgrade list
-                self.upgrades = [
-                    Upgrade(id: "click_power", name: "Cursor Enhancer", description: "+1 per tap", baseCost: 10, multiplier: 1.5),
-                    Upgrade(id: "auto_farm", name: "Goober Farm", description: "Auto-generates", baseCost: 50, multiplier: 1.8),
-                    Upgrade(id: "factory", name: "Goober Factory", description: "Mass production", baseCost: 500, multiplier: 2.0)
-                ]
+                self.upgrades = Upgrade.starterUpgrades
             }
             saveGame()
         }

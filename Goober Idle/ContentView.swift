@@ -70,7 +70,7 @@ struct UpgradeRow: View {
             }
             .buttonStyle(.borderedProminent)
             .disabled(upgrade.currentCost > gameEngine.tapCount)
-            .opacity(gameEngine.tapCount < upgrade.currentCost ? 0.7 : 1.0)
+            .opacity(gameEngine.tapCount < upgrade.currentCost ? 0.6 : 1.0)
             
             // progress bar
             ProgressView(
