@@ -65,12 +65,12 @@ struct UpgradeRow: View {
     var body: some View {
         VStack {
             // The button logic talks directly to the engine
-            Button("\(upgrade.name) Lvl \(upgrade.level) - Cost: \(upgrade.currentCost)") {
+            Button(upgrade.buttonTitle) {
                 gameEngine.buyUpgrade(id: upgrade.id)
             }
             .buttonStyle(.borderedProminent)
-            .disabled(upgrade.currentCost > gameEngine.tapCount)
-            .opacity(gameEngine.tapCount < upgrade.currentCost ? 0.6 : 1.0)
+            .disabled(upgrade.currentCost > gameEngine.tapCount) // cost of upgrade > players count bool
+            .opacity(gameEngine.tapCount < upgrade.currentCost ? 0.6 : 1.0) // unbuyable : buyable
             
             // progress bar
             ProgressView(
