@@ -82,6 +82,7 @@ struct UpgradeRow: View {
     }
 }
 
+
 #Preview {
     ContentView()
         .environment(GameEngine())
