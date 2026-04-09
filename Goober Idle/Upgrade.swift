@@ -26,8 +26,7 @@ struct Upgrade: Identifiable, Codable {
     
     // Computed property: Calculates production based on level
     var currentProduction: Int {
-        // Example: Level 1 = 1/sec, Level 2 = 2/sec. Adjust formula as needed.
-        return level > 0 ? level * 1 : 0
+        return level > 0 ? level * baseProduction : 0
     }
     
     var buttonTitle: String {
