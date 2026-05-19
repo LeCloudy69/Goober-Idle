@@ -18,13 +18,37 @@ class GameEngine {
     var upgrades: [Upgrade] = []
     
     private var lastLogin: Date = Date.now
-    
+    private var timer: Timer?
+    private var timerInterval: TimeInterval = 2.0
     
     init() {
         loadGame()
+        startGameLoop()
     }
     
-    // MARK: - Game Logic
+// MARK: - IN GAME TICK
+    func startGameLoop() { // timer for in game ticks
+        timer?.invalidate() // remove any previous timers
+        timer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true) { [weak self] _ in
+            self?.runTick()
+        }
+    }
+    
+    func runTick() {
+        var totalGPS: Int = 0 // total goobers per second
+        
+        for upgrade in upgrades {
+            totalGPS += upgrade.currentProduction
+        }
+        
+        if totalGPS > 0 {
+            gooberCount += totalGPS
+            lifetimeCountGoobers += totalGPS
+            print("added current gps: \(totalGPS)")
+        }
+    }
+    
+// MARK: - Game Logic
     func buyUpgrade(id: String) {
         // Find the index of the upgrade the player tapped
         if let index = upgrades.firstIndex(where: { $0.id == id }) {
@@ -52,7 +76,10 @@ class GameEngine {
     
     private func calculateOfflineProgress (from savedDate : Date){
         let secondsSinceGone = Date.now.timeIntervalSince(savedDate) // seconds since now from login
-        guard secondsSinceGone > 120 else { return } // if gone for less than 2 minutes, dont do nothing.
+        guard secondsSinceGone > 120 else {
+            print("Not gone long enough, no goobers")
+            return
+        } // if gone for less than 2 minutes, dont do nothing.
         var totalGPS = 0 // goobers Per Second
         for upgrade in upgrades {
             totalGPS += upgrade.currentProduction
@@ -104,7 +131,12 @@ class GameEngine {
 // MARK: - App lifecycle
 
     func appWenttoBackground() {
+        timer?.invalidate() // stop timer
+        timer = nil // clear it from mem
+        
         print("Game went to background, going to sleep")
+        
+        // saving time and saving game
         UserDefaults.standard.set(Date(), forKey: "lastLogin")
         saveGame()
     }
@@ -115,6 +147,8 @@ class GameEngine {
             calculateOfflineProgress(from: savedDate)
             UserDefaults.standard.removeObject(forKey: "lastLogin")
         }
+        
+        startGameLoop() // we back, start ticking again.
     }
 }
 
