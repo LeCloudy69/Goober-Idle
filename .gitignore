@@ -89,3 +89,4 @@ iOSInjectionProject/
 
 # macOS
 .DS_Store
+.aider*
