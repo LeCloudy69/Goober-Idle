@@ -46,6 +46,10 @@ struct Upgrade: Identifiable, Codable {
             // Goober Farm, threshhold, First idle upgrade
             Upgrade(id: "auto_farm", name: "Goober Farm", description: "Auto-generates", baseCost: 50, multiplier: 1.8, baseProduction: 5, unlockThreshold: 25),
             // Goober Factory, threshhold, Second idle upgrade
-            Upgrade(id: "goober_factory", name: "Goober Factory", description: "Mass production", baseCost: 500, multiplier: 2.0, baseProduction: 50, unlockThreshold: 300)
+            Upgrade(id: "goober_factory", name: "Goober Factory", description: "Mass production", baseCost: 500, multiplier: 2.0, baseProduction: 50, unlockThreshold: 300),
+            // Goober Mine, threshold, Third idle upgrade
+            Upgrade(id: "goober_mine", name: "Goober Mine", description: "Deep goober extraction", baseCost: 2500, multiplier: 2.2, baseProduction: 250, unlockThreshold: 1500),
+            // Goober Portal, threshold, Fourth idle upgrade
+            Upgrade(id: "goober_portal", name: "Goober Portal", description: "Summon from Gooberverse", baseCost: 20000, multiplier: 2.5, baseProduction: 2000, unlockThreshold: 10000)
         ]
 }
