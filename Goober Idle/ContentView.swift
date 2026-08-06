@@ -77,6 +77,7 @@ struct UpgradeRow: View {
                 total: Double(upgrade.currentCost)
             )
             .tint(.yellow) // Progress bar color
+            .animation(.easeInOut(duration: 0.25), value: gameEngine.gooberCount)
         }
     }
 }
