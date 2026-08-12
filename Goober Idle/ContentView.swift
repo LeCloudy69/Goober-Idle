@@ -20,9 +20,10 @@ struct ContentView: View {
                 Spacer()
                 
                 // Goober count display
-                Text("Goober Count: \(gameEngine.gooberCount)")
+                Text("Goober Count: \n \(gameEngine.gooberCount)")
                     .font(.largeTitle)
                     .padding()
+                    .multilineTextAlignment(.center)
                 
                 Button("Reset (Debug)"){
                     gameEngine.resetGame()
